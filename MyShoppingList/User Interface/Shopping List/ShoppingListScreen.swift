@@ -10,6 +10,7 @@ import SwiftUI
 struct ShoppingListScreen: View {
     
     @State var viewModel = ShoppingListViewModel()
+    @FocusState private var isQuantityFieldFocused: Bool
     
     var body: some View {
         VStack {
@@ -40,16 +41,27 @@ struct ShoppingListScreen: View {
         }
     }
     
-    private func quantityForm(selectedItem: ListEntry) -> some View {
+    private func quantityForm(selectedItem: ListEntry) -> some
+    View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Quantity for \(selectedItem.name):")
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        DispatchQueue.main.async {
+                            isQuantityFieldFocused = true
+                        }
+                    }
+                
                 TextField("Amount", text: $viewModel.quantityText)
                     .textFieldStyle(.roundedBorder)
+                    .focused($isQuantityFieldFocused)
+                    .id(selectedItem.id)
             }
             Button("Apply") {
                 viewModel.applyQuantityForItem(selectedItem,
                                                newQuantity: viewModel.quantityText)
+                isQuantityFieldFocused = false
             }
         }
     }
