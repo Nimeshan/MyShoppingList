@@ -13,6 +13,7 @@ struct ContentView: View {
         NavigationStack {
             ShoppingListScreen()
                 .navigationTitle("Shopping list")
+                .background(Color .yellow)
         }
         
     }

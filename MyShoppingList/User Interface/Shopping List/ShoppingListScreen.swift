@@ -43,7 +43,7 @@ struct ShoppingListScreen: View {
     
     private func quantityForm(selectedItem: ListEntry) -> some
     View {
-        HStack {
+        return HStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Quantity for \(selectedItem.name):")
                     .contentShape(Rectangle())
@@ -63,7 +63,11 @@ struct ShoppingListScreen: View {
                                                newQuantity: viewModel.quantityText)
                 isQuantityFieldFocused = false
             }
+            .background(Color .black)
+            .foregroundColor(.white)
+            .padding(10)
         }
+        .background(Color .yellow)
     }
     
     private func toolsView() -> some View {
